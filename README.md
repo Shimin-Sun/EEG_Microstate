@@ -46,7 +46,7 @@ Computes effective transfer entropy between broadband and narrowband microstate 
 
 Evaluates discriminative performance using nested cross‑validation (5 outer × 3 inner folds):
 - Feature selection: RFE, MRMR, ReliefF, Lasso, Random Forest
-- Classifiers: Random Forest, RBF‑kernel SVM, Logistic Regression
+- Classifiers: Random Forest
 - Metrics: Balanced accuracy, sensitivity, specificity, AUC
 
 ---
