@@ -24,37 +24,44 @@
 
 ---
 
+
 ## Analysis Steps
 
 ### 1. Adjusted Mutual Information (AMI)
-`ami_analysis.R`
+**Script:** `ami_analysis.R`
 
-Computes pairwise AMI between microstate label sequences across six frequency bands (Broadband, Delta, Theta, Alpha, Beta, Gamma). Statistical significance is assessed via permutation testing (1,000 shuffles) with FDR correction.
+Computes pairwise Adjusted Mutual Information (AMI) between microstate label sequences across six frequency bands: *Broadband, Delta, Theta, Alpha, Beta, Gamma*.  
+Statistical significance is assessed via **permutation testing** (1,000 shuffles) with **FDR correction** for multiple comparisons.
 
 ### 2. Co‑occurrence Rate (ΔP)
-`cooccurrence_analysis.R`
+**Script:** `cooccurrence_analysis.R`
 
-Calculates row‑wise and column‑wise conditional probability differences (ΔP) for broadband‑narrowband microstate pairs. FDR correction applied per frequency‑band combination.
+Calculates row‑wise and column‑wise conditional probability differences (ΔP) for each broadband–narrowband microstate pair.  
+FDR correction is applied independently for each frequency‑band combination.
 
 ### 3. Transfer Entropy (TE)
-`transfer_entropy.R`
+**Script:** `transfer_entropy.R`
 
-Computes effective transfer entropy between broadband and narrowband microstate label sequences to quantify directed information flow. Statistical significance assessed via bootstrap resampling (1,000 iterations).
+Estimates effective transfer entropy between broadband and narrowband microstate label sequences, quantifying directed information flow.  
+Statistical significance is determined via **bootstrap resampling** (1,000 iterations).
 
 ### 4. Machine Learning Classification
-`classification_pipeline.py`
+**Script:** `classification_pipeline.py`
 
-Evaluates discriminative performance using nested cross‑validation (5 outer × 3 inner folds):
-- Feature selection: RFE, MRMR, ReliefF, Lasso, Random Forest
-- Classifiers: Random Forest
-- Metrics: Balanced accuracy, sensitivity, specificity, AUC
+Evaluates the discriminative power of cross‑frequency coupling features using a **nested cross‑validation** scheme (5 outer × 3 inner folds).
 
----
+- **Feature selection methods:** RFE, MRMR, ReliefF, Lasso, Random Forest  
+- **Classifier:** Random Forest  
+- **Performance metrics:** Balanced accuracy, sensitivity, specificity, AUC
+
+The pipeline automatically handles missing data (median imputation) and scaling (`RobustScaler`). Results include feature selection frequency and mean importance scores.
 
 ## Usage
 
-Update the file paths in each script to your local data directory:
+### Prerequisites
+- **R** (≥ 4.0) with packages: `aricode`, `infotheo`, `RTransferEntropy`, etc.  
+- **Python** (≥ 3.8) with packages: `pandas`, `numpy`, `scikit‑learn`, `skrebate`, `openpyxl`
 
-```r
-base_path <- "path/to/EC_sequences"
-output_dir <- "path/to/output"
+Install Python dependencies with:
+```bash
+pip install pandas numpy scikit-learn skrebate openpyxl
